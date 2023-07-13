@@ -14,11 +14,11 @@ export const todoService = {
 }
 
 function query(filterBy) {
-    
+    console.log(filterBy);
     return storageService.query(TODOS_KEY)
         .then(todos => {
             if(filterBy === undefined) return todos
-            
+
             if (filterBy.title) {
                 const regex = new RegExp(filterBy.title, 'i')
                 todos = todos.filter(todo => regex.test(todo.title))
@@ -46,7 +46,7 @@ function save(todo) {
     }
 }
 
-function getEmptyTodo(title = '', isActive = false) {
+function getEmptyTodo(title = '', isActive = true) {
     return { _id: '', title, isActive }
 }
 

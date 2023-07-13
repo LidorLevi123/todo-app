@@ -31,7 +31,7 @@ export default {
         return {
             filterBy: {
                 title: '',
-                isActive: false,
+                isActive: null,
             },
         }
     },

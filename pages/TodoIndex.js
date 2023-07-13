@@ -1,6 +1,6 @@
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import { todoService } from '../services/todo.service.js'
-
+import { utilService } from '../services/util.service.js'
 
 import Spinner from '../cmps/Spinner.js'
 import TodoEdit from '../cmps/TodoEdit.js'
@@ -35,15 +35,13 @@ export default {
                 showSuccessMsg('Todo Removed')
             })
         },
-        checkTodo(todo) {
-            todoService.save(todo._id).then(()=> {
-
-                this.$store.commit({ type: 'checkTodo', todoId: todo._id })
-                this.$store.commit({ type: 'resizeProgressBar' })
-                todo.isActive ? 
-                    showSuccessMsg('You can do better!') :
-                    showSuccessMsg('Great job! Keep up the good work!') 
-            })
+        checkTodo(el, todo) {
+            todoService.save(todo)
+            this.$store.commit({ type: 'checkTodo', todoId: todo._id })
+            this.$store.commit({ type: 'resizeProgressBar' })
+            todo.isActive ? 
+                showSuccessMsg('You can do better!') :
+                showSuccessMsg('Great job! Keep up the good work!') 
         },
     },
     computed: {
