@@ -18,6 +18,10 @@ const storeOptions = {
         },
         saveTodo({ todos }, { savedTodo }) {
             todos.unshift(savedTodo)
+        },
+        removeTodo({ todos }, { todoId }) {
+            const idx = todos.findIndex(todo => todo._id === todoId)
+            todos.splice(idx, 1)
         }
     },
 

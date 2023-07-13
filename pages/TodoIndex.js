@@ -10,13 +10,19 @@ export default {
         <section class="todo-index">
             <TodoEdit/>
             <TodoFilter @filter="setFilterBy"/>
-            <TodoList :todos="todos"/>
+            <TodoList @remove="removeTodo" :todos="todos"/>
         </section>
     `,
     methods: {
         setFilterBy(filterBy) {
             todoService.query(filterBy).then(todos => {
                 this.$store.commit({ type: 'setTodos', todos })
+            })
+        },
+        removeTodo(todoId) {
+            todoService.remove(todoId).then(() => {
+                this.$store.commit({ type: 'removeTodo', todoId })
+                showSuccessMsg('Todo Removed')
             })
         }
     },

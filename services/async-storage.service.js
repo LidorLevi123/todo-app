@@ -13,7 +13,7 @@ function query(entityType, delay = 500) {
 
 function get(entityType, entityId) {
     return query(entityType).then(entities => {
-        const entity = entities.find(entity => entity.id === entityId)
+        const entity = entities.find(entity => entity._id === entityId)
         if (!entity) throw new Error(`Unknown Entity ${entityId}`)
         return entity
     })
@@ -30,7 +30,7 @@ function post(entityType, newEntity, append = true) {
 
 function put(entityType, updatedEntity) {
     return query(entityType).then(entities => {
-        const idx = entities.findIndex(entity => entity.id === updatedEntity.id)
+        const idx = entities.findIndex(entity => entity._id === updatedEntity.id)
         entities.splice(idx, 1, updatedEntity)
         _save(entityType, entities)
         return updatedEntity
@@ -39,7 +39,7 @@ function put(entityType, updatedEntity) {
 
 function remove(entityType, entityId) {
     return query(entityType).then(entities => {
-        const idx = entities.findIndex(entity => entity.id === entityId)
+        const idx = entities.findIndex(entity => entity._id === entityId)
         if (idx < 0) throw new Error(`Unknown Entity ${entityId}`)
         entities.splice(idx, 1)
         _save(entityType, entities)

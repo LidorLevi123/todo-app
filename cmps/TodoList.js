@@ -7,13 +7,25 @@ export default {
             <ul class="clean-list">
                 <li v-for="todo in todos">
                     <TodoPreview :todo="todo"/>
+                    <i class="btn-remove fa fa-sharp fa-light fa-circle-xmark" 
+                       title="Remove Todo"
+                       @click="onRemoveTodo(todo._id)"></i>
                 </li>
             </ul>
         </section>
     `,
-    methods: {
-        
+    data() {
+        return {
+            isMouseOver: false
+        }
     },
+
+    methods: {
+        onRemoveTodo(todoId) {
+            this.$emit('remove', todoId)
+        }
+    },
+
     components: {
         TodoPreview
     }
