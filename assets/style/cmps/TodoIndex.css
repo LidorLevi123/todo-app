@@ -1,0 +1,11 @@
+.todo-index {
+    display: grid;
+    grid-template-columns: 1fr 300px 1fr;
+    grid-auto-flow: row;
+    justify-items: center;
+    gap: 1em;
+}
+
+.todo-index > *{
+    width: 100%;
+}

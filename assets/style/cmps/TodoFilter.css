@@ -1,11 +1,23 @@
 .todo-filter {
-    width: max-content;
     border-radius: 1em;
-    margin-block-start: 0.5em;
+    margin-block-start: 1em;
+    grid-column: 2;
 }
 
-.todo-filter > *:not(legend) {
-    width: max-content;
+.todo-filter .filter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo-filter > * {
+    width: 100%;
+}
+
+.todo-filter > *:not(:last-child) {
     border-radius: 1em;
     border: 0.1px solid black
+}
+
+.todo-filter > *:last-child {
+    margin-block-start: 1em;
 }

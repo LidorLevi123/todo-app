@@ -22,7 +22,6 @@ const options = {
     created() {
         todoService.query().then(todos => {
             this.$store.commit({ type: 'setTodos', todos })
-            console.log(this.$store.state.todos)
         })
     },
 

@@ -14,5 +14,10 @@
 @import 'cmps/AppHeader.css';
 @import 'cmps/AppFooter.css';
 
+@import 'cmps/TodoIndex.css';
+@import 'cmps/TodoFilter.css';
+@import 'cmps/TodoList.css';
+@import 'cmps/TodoPreview.css';
+
 /* Media Queries */
 @import 'base/mq.css'

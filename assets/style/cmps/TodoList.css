@@ -1,0 +1,10 @@
+.todo-list {
+    background-color: var(--clrPrimary4);
+    padding: 0em 2em;
+    border-radius: 1em;
+    grid-column: 2;
+}
+
+.todo-list ul li {
+    margin-block: 1.5em;
+}
