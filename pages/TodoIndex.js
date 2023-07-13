@@ -1,15 +1,19 @@
 import { showSuccessMsg } from '../services/event-bus.service.js'
 
+import TodoFilter from '../cmps/TodoFilter.js'
 import TodoList from '../cmps/TodoList.js'
 
 export default {
     template: `
         <section class="todo-index main-layout">
+            <TodoFilter @filter="setFilterBy"/>
             <TodoList :todos="todos"/>
         </section>
     `,
     methods: {
-
+        setFilterBy(filterBy) {
+            
+        }
     },
     computed: {
         todos() {
@@ -17,6 +21,7 @@ export default {
         }
     },
     components: {
+        TodoFilter,
         TodoList
     }
 }

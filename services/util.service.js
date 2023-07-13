@@ -9,6 +9,7 @@ export const utilService = {
     getMonthName,
     animateCSS,
     getRandomColor,
+    debounce
 }
 
 function makeId(length = 7) {
@@ -85,4 +86,17 @@ function getRandomColor() {
         color += letters[Math.floor(Math.random() * letters.length)]
     }
     return color
+}
+
+function debounce(fn, wait) {
+    let timer
+    return function (...args) {
+        if (timer) {
+            clearTimeout(timer) // clear any pre-existing timer
+        }
+        const context = this // get the current context
+        timer = setTimeout(() => {
+            fn.apply(context, args) // call the function if time expires
+        }, wait)
+    }
 }

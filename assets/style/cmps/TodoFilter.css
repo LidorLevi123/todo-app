@@ -1,0 +1,11 @@
+.todo-filter {
+    width: max-content;
+    border-radius: 1em;
+    margin-block-start: 0.5em;
+}
+
+.todo-filter > *:not(legend) {
+    width: max-content;
+    border-radius: 1em;
+    border: 0.1px solid black
+}
