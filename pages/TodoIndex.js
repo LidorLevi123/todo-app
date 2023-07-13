@@ -10,7 +10,10 @@ export default {
         <section class="todo-index">
             <TodoEdit/>
             <TodoFilter @filter="setFilterBy"/>
-            <TodoList @remove="removeTodo" :todos="todos"/>
+            <TodoList 
+                @remove="removeTodo"
+                @check="checkTodo"
+                :todos="todos"/>
         </section>
     `,
     methods: {
@@ -24,6 +27,12 @@ export default {
                 this.$store.commit({ type: 'removeTodo', todoId })
                 showSuccessMsg('Todo Removed')
             })
+        },
+        checkTodo(todo) {
+            this.$store.commit({ type: 'checkTodo', todoId: todo._id })
+            todo.isActive ? 
+                showSuccessMsg('You can do better!') :
+                showSuccessMsg('Great job! Keep up the good work!') 
         }
     },
     computed: {

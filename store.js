@@ -22,6 +22,10 @@ const storeOptions = {
         removeTodo({ todos }, { todoId }) {
             const idx = todos.findIndex(todo => todo._id === todoId)
             todos.splice(idx, 1)
+        },
+        checkTodo({ todos }, { todoId }) {
+            const todo = todos.find(todo => todo._id === todoId)
+            todo.isActive = !todo.isActive
         }
     },
 

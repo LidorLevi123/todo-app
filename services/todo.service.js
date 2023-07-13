@@ -13,16 +13,18 @@ export const todoService = {
     getEmptyTodo,
 }
 
-function query(filterBy = {}) {
+function query(filterBy) {
+    
     return storageService.query(TODOS_KEY)
         .then(todos => {
+            if(filterBy === undefined) return todos
+            
             if (filterBy.title) {
                 const regex = new RegExp(filterBy.title, 'i')
                 todos = todos.filter(todo => regex.test(todo.title))
             }
-            if (filterBy.state) {
-                const regex = new RegExp(filterBy.state, 'i')
-                todos = todos.filter(todo => regex.test(todo.state))
+            if (filterBy.isActive !== null) {
+                todos = todos.filter(todo => todo.isActive === filterBy.isActive)
             }
             return todos
         })
@@ -44,18 +46,18 @@ function save(todo) {
     }
 }
 
-function getEmptyTodo(title = '', state = '') {
-    return { _id: '', title, state }
+function getEmptyTodo(title = '', isActive = false) {
+    return { _id: '', title, isActive }
 }
 
 function _createTodos() {
     let todos = utilService.loadFromStorage(TODOS_KEY)
     if (!todos || !todos.length) {
         todos = []
-        todos.push(_createTodo('Learn Vuex', 'active'))
-        todos.push(_createTodo('Play Katan', 'active'))
-        todos.push(_createTodo('Finish This Project', 'active'))
-        todos.push(_createTodo('Eat Lunch', 'done'))
+        todos.push(_createTodo('Learn Vuex', true))
+        todos.push(_createTodo('Play Katan', true))
+        todos.push(_createTodo('Finish This Project', true))
+        todos.push(_createTodo('Eat Lunch', false))
         utilService.saveToStorage(TODOS_KEY, todos)
     }
 }

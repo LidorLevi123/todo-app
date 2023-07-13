@@ -4,6 +4,7 @@
     grid-auto-flow: row;
     justify-items: center;
     gap: 1em;
+    color: rgb(20, 20, 20);
 }
 
 .todo-index > * {

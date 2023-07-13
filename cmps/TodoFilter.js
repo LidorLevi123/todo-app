@@ -10,17 +10,17 @@ export default {
 
             <div class="filter">
                 <span>
-                    <input type="radio" id="all" name="filter" value="" v-model="filterBy.state" checked>
+                    <input type="radio" id="all" name="filter" value="" @change="onSetFilterBy" checked>
                     <label for="all">All</label>
                 </span>
         
                 <span>
-                    <input type="radio" id="active" name="filter" value="active" v-model="filterBy.state">
+                    <input type="radio" id="active" name="filter" value="active" @change="onSetFilterBy">
                     <label for="active">Active</label>
                 </span>
         
                 <span>
-                    <input type="radio" id="done" name="filter" value="done" v-model="filterBy.state">
+                    <input type="radio" id="done" name="filter" value="done" @change="onSetFilterBy">
                     <label for="done">Done</label>
                 </span>
             </div>
@@ -31,7 +31,7 @@ export default {
         return {
             filterBy: {
                 title: '',
-                state: ''
+                isActive: false,
             },
         }
     },
@@ -40,6 +40,15 @@ export default {
         this.filter = utilService.debounce(() => {
             this.$emit('filter', this.filterBy)
         }, 600)
+    },
+
+    methods: {
+        onSetFilterBy(ev) {
+            const { value } = ev.target
+            if(value === 'active') this.filterBy.isActive = true
+            else if(value === 'done') this.filterBy.isActive = false
+            else this.filterBy.isActive = null
+        }
     },
 
     watch: {
