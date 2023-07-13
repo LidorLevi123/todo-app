@@ -53,6 +53,7 @@ function _createTodos() {
         todos = []
         todos.push(_createTodo('Learn Vuex', false))
         todos.push(_createTodo('Play Katan', false))
+        todos.push(_createTodo('Finish This Project', false))
         todos.push(_createTodo('Eat Lunch', true))
         utilService.saveToStorage(TODOS_KEY, todos)
     }
