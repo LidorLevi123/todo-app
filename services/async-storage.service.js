@@ -20,7 +20,7 @@ function get(entityType, entityId) {
 }
 
 function post(entityType, newEntity, append = true) {
-    newEntity.id = _makeId()
+    newEntity._id = _makeId()
     return query(entityType).then(entities => {
         append ? entities.push(newEntity) : entities.unshift(newEntity)
         _save(entityType, entities)
@@ -52,7 +52,7 @@ function _save(entityType, entities) {
     localStorage.setItem(entityType, JSON.stringify(entities))
 }
 
-function _makeId(length = 5) {
+function _makeId(length = 6) {
     var text = ''
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     for (var i = 0; i < length; i++) {

@@ -40,6 +40,7 @@ export default {
 				.save({ ...this.todoToAdd })
 				.then(savedTodo => {
 					this.$store.commit({ type: 'saveTodo', savedTodo })
+					this.$store.commit({ type: 'resizeProgressBar' })
 					showSuccessMsg('Todo Added!')
 				})
 				.catch(() => {

@@ -22,3 +22,25 @@
 .app-header nav > *:last-child{
   margin-inline-start: 1rem;
 }
+
+.app-header .progress-bar-outer {
+  background-color: lightgray;
+  width: 50%;
+  border-radius: 1em;
+}
+
+.app-header .progress-bar-inner {
+  position: relative;
+  background-color: var(--clrPrimary1);
+  color: white;
+  padding: 0.5em;
+  border-radius: 1em;
+  height: 50px;
+  transition: .5s;
+}
+
+.app-header .progress-bar-inner span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

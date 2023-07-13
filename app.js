@@ -22,6 +22,7 @@ const options = {
     created() {
         todoService.query().then(todos => {
             this.$store.commit({ type: 'setTodos', todos })
+            this.$store.commit({ type: 'resizeProgressBar' })
         })
     },
 

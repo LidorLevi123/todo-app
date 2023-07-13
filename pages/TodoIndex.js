@@ -1,6 +1,8 @@
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import { todoService } from '../services/todo.service.js'
 
+
+import Spinner from '../cmps/Spinner.js'
 import TodoEdit from '../cmps/TodoEdit.js'
 import TodoFilter from '../cmps/TodoFilter.js'
 import TodoList from '../cmps/TodoList.js'
@@ -10,10 +12,14 @@ export default {
         <section class="todo-index">
             <TodoEdit/>
             <TodoFilter @filter="setFilterBy"/>
-            <TodoList 
+            <TodoList
+                v-if="todos" 
                 @remove="removeTodo"
                 @check="checkTodo"
                 :todos="todos"/>
+                <section v-else class="Spinner">
+                    <Spinner />
+                </section>
         </section>
     `,
     methods: {
@@ -25,15 +31,20 @@ export default {
         removeTodo(todoId) {
             todoService.remove(todoId).then(() => {
                 this.$store.commit({ type: 'removeTodo', todoId })
+                this.$store.commit({ type: 'resizeProgressBar' })
                 showSuccessMsg('Todo Removed')
             })
         },
         checkTodo(todo) {
-            this.$store.commit({ type: 'checkTodo', todoId: todo._id })
-            todo.isActive ? 
-                showSuccessMsg('You can do better!') :
-                showSuccessMsg('Great job! Keep up the good work!') 
-        }
+            todoService.save(todo._id).then(()=> {
+
+                this.$store.commit({ type: 'checkTodo', todoId: todo._id })
+                this.$store.commit({ type: 'resizeProgressBar' })
+                todo.isActive ? 
+                    showSuccessMsg('You can do better!') :
+                    showSuccessMsg('Great job! Keep up the good work!') 
+            })
+        },
     },
     computed: {
         todos() {
@@ -41,6 +52,7 @@ export default {
         }
     },
     components: {
+        Spinner,
         TodoEdit,
         TodoFilter,
         TodoList
