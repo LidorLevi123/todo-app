@@ -1,0 +1,24 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 1px solid #0000007a;
+  background-color: var(--clrPrimary3);
+  color: #000000;
+
+  font-size: 1.5rem;
+}
+
+.app-header h1 {
+  padding-inline-start: 1rem;
+  text-shadow: 1px 1px 5px whitesmoke;
+}
+
+.app-header nav {
+  padding-inline-end: 1rem;
+}
+
+.app-header nav > *:last-child{
+  margin-inline-start: 1rem;
+}

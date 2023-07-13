@@ -1,0 +1,46 @@
+.home-page div{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    justify-items: center;
+    gap: 1em;
+    padding-inline: 2em;
+    margin: auto;
+    max-width: 1400px;
+}
+
+.home-page h1{
+    color: black;
+    font-size: 3rem;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    line-height: 2;
+    letter-spacing: 0.05em;
+}
+
+.home-page h2{
+    color: black;
+    font-size: 1.5em;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.home-page img {
+    width: 125px;
+}
+
+.home-page article {
+    width: 400px;
+    font-size: 1.75em;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    background-color: var(--secondary-clr5);
+    border-radius: 0.5em;
+    transition: 0.2s;
+    cursor: pointer;
+    border: 1px solid rgb(102, 93, 93);
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.home-page article:hover {
+   scale: 1.02;
+   opacity: 0.9;
+}
