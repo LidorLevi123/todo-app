@@ -1,7 +1,5 @@
 .todo-filter {
     border-radius: 1em;
-    margin-block-start: 1em;
-    grid-column: 2;
 }
 
 .todo-filter .filter {

@@ -31,8 +31,8 @@ object {
 /* tap targets: */
 nav a,
 button {
-  min-width: 48px;
-  min-height: 48px;
+  min-width: 24px;
+  min-height: 24px;
 }
 
 /* Simple and useful CSS Debugging Technique */

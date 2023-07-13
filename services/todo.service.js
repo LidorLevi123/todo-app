@@ -16,7 +16,6 @@ export const todoService = {
 function query(filterBy = {}) {
     return storageService.query(TODOS_KEY)
         .then(todos => {
-            console.log(filterBy);
             if (filterBy.title) {
                 const regex = new RegExp(filterBy.title, 'i')
                 todos = todos.filter(todo => regex.test(todo.title))
@@ -41,7 +40,7 @@ function save(todo) {
     if (todo._id) {
         return storageService.put(TODOS_KEY, todo)
     } else {
-        return storageService.post(TODOS_KEY, todo)
+        return storageService.post(TODOS_KEY, todo, false)
     }
 }
 

@@ -8,13 +8,16 @@ const storeOptions = {
 
     state() {
         return {
-            todos: null
+            todos: null,
         }
     },
 
     mutations: {
         setTodos(state, { todos }) {
             state.todos = todos
+        },
+        saveTodo({ todos }, { savedTodo }) {
+            todos.unshift(savedTodo)
         }
     },
 

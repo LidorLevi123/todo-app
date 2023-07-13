@@ -1,11 +1,16 @@
 .todo-index {
     display: grid;
-    grid-template-columns: 1fr 300px 1fr;
+    grid-template-columns: 1fr minmax(150px, 350px) 1fr;
     grid-auto-flow: row;
     justify-items: center;
     gap: 1em;
 }
 
-.todo-index > *{
+.todo-index > * {
     width: 100%;
+    grid-column: 2;
+}
+
+.todo-index > *:first-child {
+    margin-block-start: 2em;
 }

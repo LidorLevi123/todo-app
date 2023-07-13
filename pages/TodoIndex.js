@@ -1,12 +1,14 @@
 import { showSuccessMsg } from '../services/event-bus.service.js'
 import { todoService } from '../services/todo.service.js'
 
+import TodoEdit from '../cmps/TodoEdit.js'
 import TodoFilter from '../cmps/TodoFilter.js'
 import TodoList from '../cmps/TodoList.js'
 
 export default {
     template: `
-        <section class="todo-index main-layout">
+        <section class="todo-index">
+            <TodoEdit/>
             <TodoFilter @filter="setFilterBy"/>
             <TodoList :todos="todos"/>
         </section>
@@ -24,6 +26,7 @@ export default {
         }
     },
     components: {
+        TodoEdit,
         TodoFilter,
         TodoList
     }

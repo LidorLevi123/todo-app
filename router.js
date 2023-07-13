@@ -1,5 +1,6 @@
 import HomePage from './pages/HomePage.js'
 import TodoIndex from './pages/TodoIndex.js'
+import TodoEdit from './cmps/TodoEdit.js'
 import UserDetails from './pages/UserDetails.js'
 
 const { createRouter, createWebHashHistory } = VueRouter
