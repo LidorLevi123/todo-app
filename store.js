@@ -5,14 +5,19 @@ const { createStore } = Vuex
 
 const storeOptions = {
     strict: true,
+
     state() {
         return {
-            
+            todos: null
         }
     },
+
     mutations: {
-        
+        setTodos(state, { todos }) {
+            state.todos = todos
+        }
     },
+
     getters: {
         
     }

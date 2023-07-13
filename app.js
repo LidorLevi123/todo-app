@@ -3,6 +3,8 @@ const { createApp } = Vue
 import { router } from './router.js'
 import { store } from './store.js'
 
+import { todoService } from './services/todo.service.js'
+
 import AppHeader from './cmps/AppHeader.js'
 import AppFooter from './cmps/AppFooter.js'
 import UserMsg from './cmps/UserMsg.js'
@@ -16,6 +18,14 @@ const options = {
             <UserMsg />
         </section>
     `,
+
+    created() {
+        todoService.query().then(todos => {
+            this.$store.commit({ type: 'setTodos', todos })
+            console.log(this.$store.state.todos)
+        })
+    },
+
 	components: {
 		AppHeader,
 		AppFooter,
