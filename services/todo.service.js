@@ -14,7 +14,7 @@ export const todoService = {
 }
 
 function query(filterBy) {
-    console.log(filterBy);
+
     return storageService.query(TODOS_KEY)
         .then(todos => {
             if(filterBy === undefined) return todos

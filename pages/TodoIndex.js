@@ -35,7 +35,7 @@ export default {
                 showSuccessMsg('Todo Removed')
             })
         },
-        checkTodo(el, todo) {
+        checkTodo(todo) {
             todoService.save(todo)
             this.$store.commit({ type: 'checkTodo', todoId: todo._id })
             this.$store.commit({ type: 'resizeProgressBar' })
