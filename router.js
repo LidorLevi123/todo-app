@@ -1,7 +1,6 @@
 import HomePage from './pages/HomePage.js'
 import TodoIndex from './pages/TodoIndex.js'
-import TodoEdit from './cmps/TodoEdit.js'
-import UserDetails from './pages/UserDetails.js'
+import UserProfile from './pages/UserProfile.js'
 
 const { createRouter, createWebHashHistory } = VueRouter
 
@@ -19,7 +18,7 @@ const routerOptions = {
 		},
 		{
 			path: '/user',
-			component: UserDetails,
+			component: UserProfile,
 		},
 	],
 }

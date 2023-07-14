@@ -51,7 +51,7 @@
 }
 
 .todo-edit .btn-add:active {
-    padding-bottom: 10px;
+    padding: 0.3em;
 }
 
 .todo-edit .group {

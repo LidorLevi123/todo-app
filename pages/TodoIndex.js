@@ -22,6 +22,7 @@ export default {
                 </section>
         </section>
     `,
+
     methods: {
         setFilterBy(filterBy) {
             todoService.query(filterBy).then(todos => {

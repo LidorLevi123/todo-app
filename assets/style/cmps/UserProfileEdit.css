@@ -1,0 +1,30 @@
+.user-profile-edit {
+    display: grid;
+    gap: 10px;
+    text-align: start;
+}
+
+.user-profile-edit input {
+    padding: 0;
+}
+
+.user-profile-edit label {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.user-profile-edit .labels {
+    display: grid
+}
+
+.user-profile-edit .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-block-start: 20px;
+    width: 100%;
+}
+
+.user-profile-edit > *:last-child {
+    border-radius: 1em;
+    place-self: end;
+}
