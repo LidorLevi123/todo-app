@@ -1,10 +1,10 @@
 import TodoPreview from '../cmps/TodoPreview.js'
 
 export default {
-    props: ['todos'],
+    props: ['todos', 'emptyListMsg'],
     template: `
         <section class="todo-list main-layout">
-            <ul class="clean-list">
+            <ul v-if="todos.length" class="clean-list">
                 <li @click="onCheckTodo(todo)" v-for="todo in todos">
                     <TodoPreview :todo="todo"/>
                     <i class="btn-remove fa fa-sharp fa-light fa-circle-xmark" 
@@ -12,13 +12,9 @@ export default {
                        @click="onRemoveTodo(todo, $event)"></i>
                 </li>
             </ul>
+            <h3 v-else>{{ emptyListMsg }}</h3>
         </section>
     `,
-    data() {
-        return {
-            isMouseOver: false
-        }
-    },
 
     methods: {
         onRemoveTodo(todo, ev) {

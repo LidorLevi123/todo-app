@@ -16,18 +16,31 @@ export default {
                 v-if="todos" 
                 @remove="removeTodo"
                 @check="checkTodo"
-                :todos="todos"/>
+                :todos="todos"
+                :emptyListMsg="emptyListMsg"/>
                 <section v-else class="Spinner">
                     <Spinner />
                 </section>
         </section>
     `,
 
+    data() {
+        return {
+            emptyListMsg: ''
+        }
+    },
+
     methods: {
         setFilterBy(filterBy) {
             todoService.query(filterBy).then(todos => {
                 this.$store.commit({ type: 'setTodos', todos })
             })
+            this.setEmptyListMsg(filterBy)
+        },
+        setEmptyListMsg({ isActive }) {
+            if(isActive) this.emptyListMsg = 'No Active Todos'
+            else if(isActive === false) this.emptyListMsg = 'No Todos Done (YET)'
+            else this.emptyListMsg = 'No Todos Left'
         },
         removeTodo(todo) {
             todoService.remove(todo._id).then(() => {

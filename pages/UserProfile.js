@@ -6,7 +6,7 @@ export default {
     template: `
         <section class="user-profile main-layout">
             <div class="user-card">
-                <img class="user-img" src="https://robohash.org/asd/?set=set5" alt="">
+                <img class="user-img" :src="'https://robohash.org/' + user.fullname + '/?set=set5'" alt="user.img">
                 <h1 class="user-name">{{ user.fullname }}</h1>
             </div>
             <UserProfileEdit @update-user="updateUser"/>

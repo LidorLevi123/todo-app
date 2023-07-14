@@ -11,15 +11,46 @@
 }
 
 .app-header h1 {
-  text-shadow: 1px 1px 5px whitesmoke;
+  font-family: cursive;
+  letter-spacing: 0.05em;
+  margin: 0.2em;
+  cursor: pointer;
+  transition: scale .2s;
+}
+
+.app-header h1:hover {
+  scale: 1.02;
+}
+
+.app-header h1 span {
+  color: var(--clrPrimary4);
+}
+
+.app-header h5 {
+  border: 1px solid black;
+  border-radius: 0.5em;
+  padding: 0.7em;
+  background-color: var(--clrPrimary1);
+  margin: 0;
+}
+
+.app-header img {
+  width: 20px;
+  border-radius: 50%;
+  margin-inline-end: 0.2em;
 }
 
 .app-header nav {
   padding-inline-end: 1rem;
 }
 
-.app-header nav > *:last-child{
+.app-header nav > *:last-child {
   margin-inline-start: 1rem;
+}
+
+.app-header .router-link-active:not(.logo, .user) {
+  color: white;
+  border-bottom: 2px solid var(--clrPrimary1);
 }
 
 .app-header .progress-bar-outer {
@@ -34,12 +65,13 @@
   color: white;
   padding: 0.5em;
   border-radius: 1em;
-  height: 50px;
+  height: 40px;
   transition: .5s;
 }
 
 .app-header .progress-bar-inner span {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  translate: -50% -50%;
 }

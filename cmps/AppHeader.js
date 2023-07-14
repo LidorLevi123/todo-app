@@ -1,7 +1,9 @@
 export default {
     template: `
         <header class="app-header main-layout">
-            <h1>Todo App</h1>
+        <RouterLink to="/" class="logo">
+            <h1>Just <span>DO</span>IT</h1>
+        </RouterLink>
             <div class="progress-bar-outer" title="% of Done Todos">
                 <div class="progress-bar-inner"><span></span></div>
             </div>
@@ -10,7 +12,8 @@ export default {
                 <RouterLink to="/todo">Todos</RouterLink>
             </nav>
             <h5>
-                <RouterLink to="/user">{{ user.fullname }}</RouterLink>
+                <img class="user-img" :src="'https://robohash.org/' + user.fullname + '/?set=set5'" alt="user.img">
+                <RouterLink to="/user" class="user">{{ user.fullname }}</RouterLink>
             </h5>
         </header>
     `,
