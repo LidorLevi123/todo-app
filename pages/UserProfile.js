@@ -29,6 +29,7 @@ export default {
     methods: {
         updateUser(settings) {
             this.$store.commit('updateUser', settings)
+            this.$store.commit({ type: 'addActivity', txt: 'User changed his settings' })
         }
     },
 

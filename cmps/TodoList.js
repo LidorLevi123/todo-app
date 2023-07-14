@@ -9,7 +9,7 @@ export default {
                     <TodoPreview :todo="todo"/>
                     <i class="btn-remove fa fa-sharp fa-light fa-circle-xmark" 
                        title="Remove Todo"
-                       @click="onRemoveTodo(todo._id, $event)"></i>
+                       @click="onRemoveTodo(todo, $event)"></i>
                 </li>
             </ul>
         </section>
@@ -21,9 +21,9 @@ export default {
     },
 
     methods: {
-        onRemoveTodo(todoId, ev) {
+        onRemoveTodo(todo, ev) {
             ev.stopPropagation()
-            this.$emit('remove', todoId)
+            this.$emit('remove', todo)
         },
         onCheckTodo(todo) {
             this.$emit('check', todo)

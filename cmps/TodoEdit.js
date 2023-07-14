@@ -20,18 +20,7 @@ export default {
 	},
 
 	created() {
-		const { todoId } = this.$route.params
-		if (!todoId) this.todoToAdd = todoService.getEmptyTodo()
-		else {
-			todoService
-				.get(todoId)
-				.then((todo) => {
-					this.todoToAdd = todo
-				})
-				.catch(() => {
-					showErrorMsg('Cannot load todo for edit')
-				})
-			}
+		this.todoToAdd = todoService.getEmptyTodo()
 	},
 
 	methods: {
@@ -40,6 +29,7 @@ export default {
 				.save({ ...this.todoToAdd })
 				.then(savedTodo => {
 					this.$store.commit({ type: 'saveTodo', savedTodo })
+					this.$store.commit({ type: 'addActivity', txt: `Added a Todo: '${savedTodo.title}'` })
 					this.$store.commit({ type: 'resizeProgressBar' })
 					showSuccessMsg('Todo Added!')
 				})

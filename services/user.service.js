@@ -1,5 +1,4 @@
 import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
 
 const USER_KEY = 'userDB'
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
@@ -14,9 +13,9 @@ export const userService = {
 }
 
 // Demo Data:
-// signup({ fullname: 'Babi Joe', username: 'babi', password: '123' })
+signup({ fullname: 'Babi Joe', username: 'babi', password: '123' })
 
-login({ username: 'babi', password: '123' })
+// login({ username: 'babi', password: '123' })
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || null)
@@ -47,7 +46,7 @@ function signup(credentials) {
             return storageService.post(USER_KEY, 
                 {...credentials, 
                     balance: 10000, 
-                    activities: [{txt: 'Added a Todo', at: 1523873242735}],
+                    activities: [],
                     prefs: {
                         color: '',
                         bgColor: ''

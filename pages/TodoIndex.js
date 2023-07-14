@@ -29,9 +29,10 @@ export default {
                 this.$store.commit({ type: 'setTodos', todos })
             })
         },
-        removeTodo(todoId) {
-            todoService.remove(todoId).then(() => {
-                this.$store.commit({ type: 'removeTodo', todoId })
+        removeTodo(todo) {
+            todoService.remove(todo._id).then(() => {
+                this.$store.commit({ type: 'removeTodo', todoId: todo._id })
+                this.$store.commit({ type: 'addActivity', txt: `Removed a Todo: '${todo.title}'` })
                 this.$store.commit({ type: 'resizeProgressBar' })
                 showSuccessMsg('Todo Removed')
             })
@@ -40,9 +41,13 @@ export default {
             todoService.save(todo)
             this.$store.commit({ type: 'checkTodo', todoId: todo._id })
             this.$store.commit({ type: 'resizeProgressBar' })
-            todo.isActive ? 
-                showSuccessMsg('You can do better!') :
+            if(todo.isActive) {
+                this.$store.commit({ type: 'addActivity', txt: `Unchecked a Todo: '${todo.title}'` })
+                showSuccessMsg('You can do better!')
+            } else {
+                this.$store.commit({ type: 'addActivity', txt: `Checked a Todo: '${todo.title}'` })
                 showSuccessMsg('Great job! Keep up the good work!') 
+            }
         },
     },
     computed: {

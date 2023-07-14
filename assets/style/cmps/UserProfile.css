@@ -17,6 +17,7 @@
 .user-profile > *:last-child ul li {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding-block: 1em;
 }
 
 .user-profile ul li span:last-child {
