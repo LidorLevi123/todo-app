@@ -6,15 +6,12 @@
 
 .user-profile-edit input {
     padding: 0;
+    width: 30vw;
 }
 
 .user-profile-edit label {
     display: grid;
     grid-template-columns: 1fr 1fr;
-}
-
-.user-profile-edit .labels {
-    display: grid
 }
 
 .user-profile-edit .actions {

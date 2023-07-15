@@ -1,6 +1,6 @@
 .user-profile {
     display: grid;
-    grid-template-columns: 190px 1fr;
+    grid-template-columns: 1fr;
     gap: 1em;
     margin-block-start: 2em;
 }
@@ -33,7 +33,7 @@
     display: grid;
     grid-template-rows: 150px;
     justify-items: center;
-    width: 190px;
+    width: 100%;
     height: 254px;
     
     background: #212121;
@@ -47,13 +47,13 @@
 }
 
 .user-profile .user-img {
-    width: 50%;
+    width: 100px;
     border-radius: 50%;
+    border: 2px solid var(--clrPrimary2);
     align-self: center;
 }
 
 .user-profile .user-name {
-    margin: 0;
     align-self: start;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
 }

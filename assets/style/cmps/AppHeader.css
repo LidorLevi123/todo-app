@@ -34,21 +34,49 @@
   margin: 0;
 }
 
-.app-header img {
+.app-header .user-img {
   width: 20px;
   border-radius: 50%;
   margin-inline-end: 0.2em;
 }
 
-.app-header nav {
-  padding-inline-end: 1rem;
+.app-header .menu-img {
+  width: 50px;
+  border-radius: 50%;
+  margin-inline-end: 0.2em;
+  cursor: pointer;
 }
 
-.app-header nav > *:last-child {
-  margin-inline-start: 1rem;
+.app-header nav {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 200px;
+  height: 100vh;
+  background-color: var(--clrPrimary1);
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: 1px 0 10px rgba(0, 0, 0, 0.5);
+
+  transition: right 0.3s ease-out;
+}
+
+body.menu-open .app-header nav {
+  right: 0
+}
+
+.app-header nav>*:not(:first-child) {
+  transition: .05s;
+  padding: 0.5em;
+}
+
+.app-header nav>*:first-child {
+  margin: 0.5em;
 }
 
 .app-header .router-link-active:not(.logo, .user) {
   color: white;
-  border-bottom: 2px solid var(--clrPrimary1);
 }

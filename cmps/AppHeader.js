@@ -8,18 +8,28 @@ export default {
             </RouterLink>
             <ProgressBar/>
             <nav>
-                <RouterLink to="/">Home</RouterLink>
-                <RouterLink to="/todo">Todos</RouterLink>
+                <h5>
+                    <img class="user-img" :src="'https://robohash.org/' + user.fullname + '/?set=set5'" alt="user.img">
+                    <RouterLink to="/user" class="user">{{ user.fullname }}</RouterLink>
+                </h5>
+                <RouterLink to="/" @click="closeMenu">Home</RouterLink>
+                <RouterLink to="/todo" @click="closeMenu">Todos</RouterLink>
             </nav>
-            <h5>
-                <img class="user-img" :src="'https://robohash.org/' + user.fullname + '/?set=set5'" alt="user.img">
-                <RouterLink to="/user" class="user">{{ user.fullname }}</RouterLink>
-            </h5>
+            <img class="menu-img" src="assets/img/menu.png" alt="" @click="openMenu">
         </header>
     `,
 
     computed: {
         user() { return this.$store.state.user },
+    },
+
+    methods: {
+        openMenu() {
+            document.body.classList.add('menu-open')
+        },
+        closeMenu() {
+            document.body.classList.remove('menu-open')
+        }
     },
     
     components: {

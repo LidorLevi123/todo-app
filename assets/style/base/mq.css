@@ -1,0 +1,71 @@
+@media (min-width: 500px) {
+    html {
+        font-size: 16px;
+    }
+
+    .home-page p {
+        padding-inline: 3em;
+    }
+
+    .user-profile {
+        grid-template-columns: 190px 1fr;
+    }
+
+    .user-profile>*:first-child {
+        width: 190px;
+    }
+
+    .user-profile .user-img {
+        width: 55%;
+        border-radius: 50%;
+        border: 2px solid var(--clrPrimary2);
+        align-self: center;
+    }
+
+    .user-profile .user-name {
+        margin: 0;
+        font-size: 1.4rem;
+    }
+
+    .app-header nav {
+        position: static;
+        background-color: var(--clrPrimary1);
+        
+        height: fit-content;
+        display: inline-block;
+        flex-direction: row;
+
+        box-shadow: none;
+        transition: right 0.3s ease-out;
+    }
+
+    .app-header .menu-img {
+        display: none;
+      }
+}
+
+@media (min-width: 700px) {
+    html {
+        font-size: 17px;
+    }
+
+    .todo-index {
+        grid-template-columns:
+            1fr minmax(150px, 500px) 1fr;
+    }
+}
+
+@media (min-width: 1000px) {
+    .todo-index {
+        font-size: 18px;
+    }
+
+    .todo-index>*:first-child {
+        grid-column: -1 / 1;
+        justify-self: center;
+        width: 40vw;
+        scale: 1.5;
+        margin-block-start: 5em;
+        margin-block-end: 3em;
+    }
+}

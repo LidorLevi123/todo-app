@@ -9,7 +9,7 @@ import TodoList from '../cmps/TodoList.js'
 
 export default {
     template: `
-        <section class="todo-index">
+        <section class="todo-index main-layout">
             <TodoEdit @todo-added="loadTodos"/>
             <TodoFilter @filter="setFilterBy" :todosCountMap="todosCountMap"/>
             <TodoSort @filter="setFilterBy"/>
@@ -108,11 +108,11 @@ export default {
             }
         },
         changePage(dir) {
-            const todos = this.$store.state.todos
+            const todosLength = this.todosCountMap.all
             const { pageSize, pageIdx } = this.filterBy
 
             if (pageIdx <= 0 && dir === -1) return
-            else if (pageIdx >= Math.ceil(todos.length / pageSize) && dir === 1) return
+            else if (pageIdx >= Math.ceil(todosLength / pageSize) && dir === 1) return
 
             this.filterBy.pageIdx += dir
             this.loadTodos()

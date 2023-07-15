@@ -8,6 +8,7 @@ import { todoService } from './services/todo.service.js'
 import AppHeader from './cmps/AppHeader.js'
 import AppFooter from './cmps/AppFooter.js'
 import UserMsg from './cmps/UserMsg.js'
+import BackDrop from './cmps/BackDrop.js'
 
 const options = {
 	template: `
@@ -16,6 +17,7 @@ const options = {
             <RouterView />
             <AppFooter />
             <UserMsg />
+            <BackDrop />
         </section>
     `,
 
@@ -30,6 +32,7 @@ const options = {
 		AppHeader,
 		AppFooter,
 		UserMsg,
+        BackDrop
 	},
 }
 
