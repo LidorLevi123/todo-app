@@ -1,6 +1,8 @@
 import { utilService } from "../services/util.service.js"
 
 export default {
+    props: ['todosCountMap'],
+
     template: `
         <section class="todo-filter">
 			<input 
@@ -11,17 +13,17 @@ export default {
             <div class="filter">
                 <span>
                     <input type="radio" id="all" name="filter" value="" @change="onSetFilterBy" checked>
-                    <label for="all">All</label>
+                    <label for="all">All <span v-if="todosCountMap">({{ todosCountMap.all }})</span></label>
                 </span>
         
                 <span>
                     <input type="radio" id="active" name="filter" value="active" @change="onSetFilterBy">
-                    <label for="active">Active</label>
+                    <label for="active">Active <span v-if="todosCountMap">({{ todosCountMap.active }})</span></label>
                 </span>
         
                 <span>
                     <input type="radio" id="done" name="filter" value="done" @change="onSetFilterBy">
-                    <label for="done">Done</label>
+                    <label for="done">Done <span v-if="todosCountMap">({{ todosCountMap.done }})</span></label>
                 </span>
             </div>
         </section>

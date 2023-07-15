@@ -11,10 +11,11 @@ export const todoService = {
     remove,
     save,
     getEmptyTodo,
+    getTodosCountMap
 }
 
 function query(filterBy) {
-    
+
     return storageService.query(TODOS_KEY)
         .then(todos => {
             // Filter
@@ -62,6 +63,19 @@ function save(todo) {
     } else {
         return storageService.post(TODOS_KEY, todo, false)
     }
+}
+
+function getTodosCountMap() {
+    return storageService.query(TODOS_KEY)
+            .then(todos => {
+                return todos.reduce((map, todo) => {
+                        map.all++
+                        if(todo.isActive) map.active++
+                        else if(!todo.isActive) map.done++
+        
+                        return map
+                    }, { all: 0, active: 0, done: 0 })
+                })
 }
 
 function getEmptyTodo(title = '', isActive = true) {

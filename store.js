@@ -8,7 +8,7 @@ const storeOptions = {
     state() {
         return {
             todos: null,
-            user: userService.getLoggedinUser()
+            user: userService.getLoggedinUser(),
         }
     },
 
@@ -52,7 +52,8 @@ const storeOptions = {
         addActivity(state, { txt }) {
             state.user.activities.unshift({ txt, at: Date.now()})
             userService.addActivity(txt)
-        }
+        },
     },
 }
+
 export const store = createStore(storeOptions)
