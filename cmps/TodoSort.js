@@ -7,7 +7,7 @@ export default {
                 <option value="">Sort by</option>
                 <option value="title">Name</option>
                 <option value="active">Active</option>
-                <option value="at">Time Created</option>
+                <option value="createdAt">Time Created</option>
             </select>
             <div>
                 <input v-model="filterBy.isDescending" type="checkbox" id="sort-descending" />

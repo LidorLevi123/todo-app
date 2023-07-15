@@ -28,19 +28,30 @@ export default {
 
     data() {
         return {
-            emptyListMsg: ''
+            emptyListMsg: '',
+            filterBy: {
+                title: '',
+                isActive: null,
+                sortBy: '',
+                isDescending: false
+            }
         }
     },
 
     methods: {
-        setFilterBy(filterBy) {
-            todoService.query(filterBy)
+        loadTodos() {
+            todoService.query(this.filterBy)
                 .then(todos => {
                     this.$store.commit({ type: 'setTodos', todos })
                 })
                 .catch(() => {
                     showErrorMsg('Cannot Load Todos')
                 })
+        },
+        setFilterBy(filterBy) {
+            this.filterBy = { ...this.filterBy, ...filterBy }
+            console.log(this.filterBy);
+            this.loadTodos()
             this.setEmptyListMsg(filterBy)
         },
         setEmptyListMsg({ isActive }) {

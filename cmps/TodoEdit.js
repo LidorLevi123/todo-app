@@ -25,6 +25,7 @@ export default {
 
 	methods: {
 		save() {
+			this.todoToAdd.createdAt = Date.now()
 			todoService
 				.save({ ...this.todoToAdd })
 				.then(savedTodo => {

@@ -34,7 +34,7 @@ function query(filterBy) {
 
             if(sortBy === 'title') todos = todos.sort((t1, t2) => t1.title.localeCompare(t2.title) * desc)
             else if(sortBy === 'active') todos.sort((t1, t2) => (t1.isActive - t2.isActive) * desc)
-            else if(sortBy === 'at') todos.sort((t1, t2) => (t1.at - t2.at) * desc)
+            else if(sortBy === 'createdAt') todos.sort((t1, t2) => (t1.createdAt - t2.createdAt) * desc)
             return todos
         })
 }
@@ -74,5 +74,6 @@ function _createTodos() {
 function _createTodo(name, price) {
     const todo = getEmptyTodo(name, price)
     todo._id = utilService.makeId()
+    todo.createdAt = Date.now()
     return todo
 }
