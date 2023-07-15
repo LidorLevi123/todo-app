@@ -23,6 +23,7 @@
 @import 'cmps/TodoIndex.css';
 @import 'cmps/TodoEdit.css';
 @import 'cmps/TodoFilter.css';
+@import 'cmps/TodoSort.css';
 @import 'cmps/TodoList.css';
 @import 'cmps/TodoPreview.css';
 

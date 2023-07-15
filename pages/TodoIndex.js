@@ -5,6 +5,7 @@ import { utilService } from '../services/util.service.js'
 import Spinner from '../cmps/Spinner.js'
 import TodoEdit from '../cmps/TodoEdit.js'
 import TodoFilter from '../cmps/TodoFilter.js'
+import TodoSort from '../cmps/TodoSort.js'
 import TodoList from '../cmps/TodoList.js'
 
 export default {
@@ -12,6 +13,7 @@ export default {
         <section class="todo-index">
             <TodoEdit/>
             <TodoFilter @filter="setFilterBy"/>
+            <TodoSort @filter="setFilterBy"/>
             <TodoList
                 v-if="todos" 
                 @remove="removeTodo"
@@ -80,6 +82,7 @@ export default {
         Spinner,
         TodoEdit,
         TodoFilter,
+        TodoSort,
         TodoList
     }
 }

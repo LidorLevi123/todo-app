@@ -14,18 +14,27 @@ export const todoService = {
 }
 
 function query(filterBy) {
-
+    
     return storageService.query(TODOS_KEY)
         .then(todos => {
+            // Filter
             if(filterBy === undefined) return todos
 
             if (filterBy.title) {
                 const regex = new RegExp(filterBy.title, 'i')
                 todos = todos.filter(todo => regex.test(todo.title))
             }
-            if (filterBy.isActive !== null) {
+            if (filterBy.isActive !== null && filterBy.isActive !== undefined) {
                 todos = todos.filter(todo => todo.isActive === filterBy.isActive)
             }
+            
+            // Sort
+            const desc = filterBy.isDescending ? 1 : -1
+            const { sortBy } = filterBy
+
+            if(sortBy === 'title') todos = todos.sort((t1, t2) => t1.title.localeCompare(t2.title) * desc)
+            else if(sortBy === 'active') todos.sort((t1, t2) => (t1.isActive - t2.isActive) * desc)
+            else if(sortBy === 'at') todos.sort((t1, t2) => (t1.at - t2.at) * desc)
             return todos
         })
 }
