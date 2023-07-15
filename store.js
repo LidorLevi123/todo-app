@@ -28,7 +28,7 @@ const storeOptions = {
             todo.isActive = !todo.isActive
         },
         resizeProgressBar({ todos }, payload) {
-            const elProgressBar = document.querySelector('.app-header .progress-bar-inner')
+            const elProgressBars = document.querySelectorAll('.progress-bar-inner')
 
             const activeCount = todos.reduce((count, todo) => {
                 if(!todo.isActive) return count + 1
@@ -37,8 +37,11 @@ const storeOptions = {
 
             const percentage = (activeCount / todos.length) * 100
 
-            elProgressBar.style.width = `${percentage}%`
-            elProgressBar.querySelector('span').innerText = `${parseInt(percentage)}%`
+            elProgressBars.forEach(bar => {
+                bar.style.width = `${percentage}%`
+                bar.querySelector('span').innerText = `${parseInt(percentage)}%`
+            })
+
         },
         updateUser({ user }, settings) {
             user.fullname = settings.fullname

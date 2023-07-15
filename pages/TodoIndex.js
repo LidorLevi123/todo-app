@@ -1,4 +1,4 @@
-import { showSuccessMsg } from '../services/event-bus.service.js'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { todoService } from '../services/todo.service.js'
 import { utilService } from '../services/util.service.js'
 
@@ -32,9 +32,13 @@ export default {
 
     methods: {
         setFilterBy(filterBy) {
-            todoService.query(filterBy).then(todos => {
-                this.$store.commit({ type: 'setTodos', todos })
-            })
+            todoService.query(filterBy)
+                .then(todos => {
+                    this.$store.commit({ type: 'setTodos', todos })
+                })
+                .catch(() => {
+                    showErrorMsg('Cannot Load Todos')
+                })
             this.setEmptyListMsg(filterBy)
         },
         setEmptyListMsg({ isActive }) {
@@ -43,12 +47,16 @@ export default {
             else this.emptyListMsg = 'No Todos Left'
         },
         removeTodo(todo) {
-            todoService.remove(todo._id).then(() => {
-                this.$store.commit({ type: 'removeTodo', todoId: todo._id })
-                this.$store.commit({ type: 'addActivity', txt: `Removed a Todo: '${todo.title}'` })
-                this.$store.commit({ type: 'resizeProgressBar' })
-                showSuccessMsg('Todo Removed')
-            })
+            todoService.remove(todo._id)
+                .then(() => {
+                    this.$store.commit({ type: 'removeTodo', todoId: todo._id })
+                    this.$store.commit({ type: 'addActivity', txt: `Removed a Todo: '${todo.title}'` })
+                    this.$store.commit({ type: 'resizeProgressBar' })
+                    showSuccessMsg('Todo Removed')
+                })
+                .catch(() => {
+                    showErrorMsg('Cannot Remove Todo')
+                })
         },
         checkTodo(todo) {
             todoService.save(todo)

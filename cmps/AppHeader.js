@@ -1,12 +1,12 @@
+import ProgressBar from "./ProgressBar.js"
+
 export default {
     template: `
         <header class="app-header main-layout">
-        <RouterLink to="/" class="logo">
-            <h1>Just <span>DO</span>IT</h1>
-        </RouterLink>
-            <div class="progress-bar-outer" title="% of Done Todos">
-                <div class="progress-bar-inner"><span></span></div>
-            </div>
+            <RouterLink to="/" class="logo">
+                <h1>Just <span>DO</span>IT</h1>
+            </RouterLink>
+            <ProgressBar/>
             <nav>
                 <RouterLink to="/">Home</RouterLink>
                 <RouterLink to="/todo">Todos</RouterLink>
@@ -20,5 +20,9 @@ export default {
 
     computed: {
         user() { return this.$store.state.user },
+    },
+    
+    components: {
+        ProgressBar
     }
 }

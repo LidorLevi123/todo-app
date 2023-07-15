@@ -52,26 +52,3 @@
   color: white;
   border-bottom: 2px solid var(--clrPrimary1);
 }
-
-.app-header .progress-bar-outer {
-  background-color: lightgray;
-  width: 50%;
-  border-radius: 1em;
-}
-
-.app-header .progress-bar-inner {
-  position: relative;
-  background-color: var(--clrPrimary1);
-  color: white;
-  padding: 0.5em;
-  border-radius: 1em;
-  height: 40px;
-  transition: .5s;
-}
-
-.app-header .progress-bar-inner span {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  translate: -50% -50%;
-}

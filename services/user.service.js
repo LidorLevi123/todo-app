@@ -13,9 +13,8 @@ export const userService = {
 }
 
 // Demo Data:
-signup({ fullname: 'Babi Joe', username: 'babi', password: '123' })
-
-// login({ username: 'babi', password: '123' })
+// signup({ fullname: 'Babi Joe', username: 'babi', password: '123' })
+login({ username: 'babi', password: '123' })
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || null)

@@ -1,0 +1,22 @@
+.progress-bar-outer {
+    background-color: lightgray;
+    width: 50%;
+    border-radius: 1em;
+}
+
+.progress-bar-inner {
+    position: relative;
+    background-color: var(--clrPrimary1);
+    color: white;
+    padding: 0.5em;
+    border-radius: 1em;
+    height: 30px;
+    transition: .5s;
+}
+
+.progress-bar-inner span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+}

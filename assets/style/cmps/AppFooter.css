@@ -6,11 +6,25 @@
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 
     border-top: 1px solid #0000007a;
 
     text-align: center;
     background-color: var(--clrPrimary3);
     color: black;
+}
+
+.app-footer .progress-bar-outer {
+    width: 50%;
+}
+
+.app-footer div {
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.app-footer div > *:first-child {
+    margin-inline-end: 0.5em;
 }
