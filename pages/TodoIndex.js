@@ -11,15 +11,24 @@ import TodoList from '../cmps/TodoList.js'
 export default {
     template: `
         <section class="todo-index">
-            <TodoEdit/>
+            <TodoEdit @todo-added="loadTodos"/>
             <TodoFilter @filter="setFilterBy"/>
             <TodoSort @filter="setFilterBy"/>
+            <div class="use-paging">
+                <h4>Use paging?</h4>
+                <label class="switch">
+                    <input type="checkbox" @click="togglePaging">
+                    <span class="slider"></span>
+                </label>
+            </div>
             <TodoList
                 v-if="todos" 
                 @remove="removeTodo"
                 @check="checkTodo"
+                @change-page="changePage"
                 :todos="todos"
-                :emptyListMsg="emptyListMsg"/>
+                :emptyListMsg="emptyListMsg"
+                :filterBy="filterBy"/>
                 <section v-else class="Spinner">
                     <Spinner />
                 </section>
@@ -30,6 +39,9 @@ export default {
         return {
             emptyListMsg: '',
             filterBy: {
+                pageSize: 5,
+                pageIdx: 0,
+                isPagingUsed: false,
                 title: '',
                 isActive: null,
                 sortBy: '',
@@ -83,6 +95,20 @@ export default {
                 showSuccessMsg('Great job! Keep up the good work!') 
             }
         },
+        changePage(dir) {
+            const todos = this.$store.state.todos
+            const { pageSize, pageIdx } = this.filterBy
+
+			if (pageIdx <= 0 && dir === -1) return
+			else if (pageIdx >= Math.ceil(todos.length / pageSize) && dir === 1) return
+
+			this.filterBy.pageIdx += dir
+			this.loadTodos()
+        },
+        togglePaging() {
+            this.filterBy.isPagingUsed = !this.filterBy.isPagingUsed
+            this.loadTodos()
+        }
     },
     computed: {
         todos() {

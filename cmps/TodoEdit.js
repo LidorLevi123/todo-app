@@ -32,6 +32,7 @@ export default {
 					this.$store.commit({ type: 'saveTodo', savedTodo })
 					this.$store.commit({ type: 'addActivity', txt: `Added a Todo: '${savedTodo.title}'` })
 					this.$store.commit({ type: 'resizeProgressBar' })
+					this.$emit('todo-added')
 					showSuccessMsg('Todo Added!')
 				})
 				.catch(() => {

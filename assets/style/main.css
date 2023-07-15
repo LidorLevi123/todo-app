@@ -28,4 +28,51 @@
 @import 'cmps/TodoPreview.css';
 
 /* Media Queries */
-@import 'base/mq.css'
+@import 'base/mq.css';
+
+.cta {
+    border: none;
+    background: none;
+}
+
+.cta span {
+    padding-bottom: 7px;
+    letter-spacing: 4px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.hover-underline-animation {
+    position: relative;
+    color: black;
+}
+
+.hover-underline-animation:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:after:first-child {
+    transform-origin: bottom right;
+}
+
+.hover-underline-animation:after:last-child {
+    transform-origin: bottom left;
+}
+
+.cta:first-child:hover .hover-underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom right;
+}
+
+.cta:last-child:hover .hover-underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}

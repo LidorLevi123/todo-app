@@ -1,9 +1,19 @@
 import TodoPreview from '../cmps/TodoPreview.js'
 
 export default {
-    props: ['todos', 'emptyListMsg'],
+    props: ['todos', 'emptyListMsg', 'filterBy'],
     template: `
         <section class="todo-list main-layout">
+            <section v-show="filterBy.isPagingUsed" class="pagination">
+				<button @click="onChangePage(-1)" class="cta">
+    				<span class="hover-underline-animation"> Prev </span>
+				</button>
+				<span>{{ filterBy.pageIdx+1 }}</span>
+				<button @click="onChangePage(1)" class="cta">
+    				<span class="hover-underline-animation"> Next </span>
+				</button>
+            </section>
+            <hr>
             <ul v-if="todos.length" class="clean-list">
                 <li @click="onCheckTodo(todo)" v-for="todo in todos">
                     <TodoPreview :todo="todo"/>
@@ -13,6 +23,7 @@ export default {
                 </li>
             </ul>
             <h3 v-else>{{ emptyListMsg }}</h3>
+            
         </section>
     `,
 
@@ -23,6 +34,9 @@ export default {
         },
         onCheckTodo(todo) {
             this.$emit('check', todo)
+        },
+        onChangePage(dir) {
+            this.$emit('change-page', dir)
         }
     },
 

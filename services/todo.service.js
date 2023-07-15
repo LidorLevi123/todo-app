@@ -18,7 +18,7 @@ function query(filterBy) {
     return storageService.query(TODOS_KEY)
         .then(todos => {
             // Filter
-            if(filterBy === undefined) return todos
+            if (filterBy === undefined) return todos
 
             if (filterBy.title) {
                 const regex = new RegExp(filterBy.title, 'i')
@@ -27,14 +27,23 @@ function query(filterBy) {
             if (filterBy.isActive !== null && filterBy.isActive !== undefined) {
                 todos = todos.filter(todo => todo.isActive === filterBy.isActive)
             }
-            
+
             // Sort
             const desc = filterBy.isDescending ? 1 : -1
             const { sortBy } = filterBy
 
-            if(sortBy === 'title') todos = todos.sort((t1, t2) => t1.title.localeCompare(t2.title) * desc)
-            else if(sortBy === 'active') todos.sort((t1, t2) => (t1.isActive - t2.isActive) * desc)
-            else if(sortBy === 'createdAt') todos.sort((t1, t2) => (t1.createdAt - t2.createdAt) * desc)
+            if (sortBy === 'title') todos = todos.sort((t1, t2) => t1.title.localeCompare(t2.title) * desc)
+            else if (sortBy === 'active') todos.sort((t1, t2) => (t1.isActive - t2.isActive) * desc)
+            else if (sortBy === 'createdAt') todos.sort((t1, t2) => (t1.createdAt - t2.createdAt) * desc)
+
+            // Paging
+            const { isPagingUsed, pageSize, pageIdx } = filterBy
+
+            if (isPagingUsed) {
+                const startPageIdx = pageIdx * pageSize
+                todos = todos.slice(startPageIdx, startPageIdx + pageSize)
+            }
+
             return todos
         })
 }
