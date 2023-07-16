@@ -39,6 +39,10 @@
         transition: right 0.3s ease-out;
     }
 
+    .app-header .progress-bar-outer {
+        display: block;
+    }
+
     .app-header .menu-img {
         display: none;
       }
