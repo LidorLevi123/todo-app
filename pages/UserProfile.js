@@ -1,5 +1,3 @@
-import { userService } from "../services/user.service.js"
-
 import UserProfileEdit from "../cmps/UserProfileEdit.js"
 
 export default {
@@ -23,12 +21,12 @@ export default {
     `,
 
     computed: {
-        user() { return this.$store.state.user }
+        user() { return this.$store.getters.user }
     },
 
     methods: {
         updateUser(settings) {
-            this.$store.commit('updateUser', settings)
+            this.$store.commit({ type: 'updateUser', settings })
             this.$store.commit({ type: 'addActivity', txt: 'User changed his settings' })
         }
     },

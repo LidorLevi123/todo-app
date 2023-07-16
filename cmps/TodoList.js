@@ -15,7 +15,7 @@ export default {
             </section>
             <hr>
             <ul v-if="todos.length" class="clean-list">
-                <li @click="onCheckTodo(todo)" v-for="todo in todos">
+                <li @click="onToggleCheckTodo(todo)" v-for="todo in todos">
                     <TodoPreview :todo="todo"/>
                     <i class="btn-remove fa fa-sharp fa-light fa-circle-xmark" 
                        title="Remove Todo"
@@ -32,8 +32,8 @@ export default {
             ev.stopPropagation()
             this.$emit('remove', todo)
         },
-        onCheckTodo(todo) {
-            this.$emit('check', todo)
+        onToggleCheckTodo(todo) {
+            this.$emit('toggle-check', { ...todo })
         },
         onChangePage(dir) {
             this.$emit('change-page', dir)

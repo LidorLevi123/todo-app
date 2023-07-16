@@ -4,7 +4,7 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 export default {
 	template: `
     <section v-if="todoToAdd" class="todo-edit">
-        <form @submit.prevent="save" class="group">
+        <form @submit.prevent="addTodo" class="group">
             <input v-model="todoToAdd.title" required="" type="text" class="input">
             <span class="highlight"></span>
             <span class="bar"></span>
@@ -15,29 +15,20 @@ export default {
     `,
 	data() {
 		return {
-			todoToAdd: null,
+			todoToAdd: todoService.getEmptyTodo(),
 		}
 	},
 
-	created() {
-		this.todoToAdd = todoService.getEmptyTodo()
-	},
-
 	methods: {
-		save() {
+		addTodo() {
 			this.todoToAdd.createdAt = Date.now()
-			todoService
-				.save({ ...this.todoToAdd })
-				.then(savedTodo => {
-					this.$store.commit({ type: 'saveTodo', savedTodo })
-					this.$store.commit({ type: 'addActivity', txt: `Added a Todo: '${savedTodo.title}'` })
-					this.$store.commit({ type: 'resizeProgressBar' })
-					this.$emit('todo-added')
+
+			this.$store.dispatch({ type: 'addTodo', todo: this.todoToAdd })
+				.then(() => {
 					showSuccessMsg('Todo Added!')
+					this.todoToAdd = todoService.getEmptyTodo()
 				})
-				.catch(() => {
-					showErrorMsg('Cannot save todo')
-				})
+				.catch(() => showErrorMsg('Couldn\'t add todo'))
 		},
 	},
 }

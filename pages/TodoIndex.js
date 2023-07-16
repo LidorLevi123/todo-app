@@ -10,7 +10,7 @@ import TodoList from '../cmps/TodoList.js'
 export default {
     template: `
         <section class="todo-index main-layout">
-            <TodoEdit @todo-added="loadTodos"/>
+            <TodoEdit />
             <TodoFilter @filter="setFilterBy" :todosCountMap="todosCountMap"/>
             <TodoSort @filter="setFilterBy"/>
             <div class="use-paging">
@@ -23,7 +23,7 @@ export default {
             <TodoList
                 v-if="todos" 
                 @remove="removeTodo"
-                @check="checkTodo"
+                @toggle-check="toggleCheckTodo"
                 @change-page="changePage"
                 :todos="todos"
                 :emptyListMsg="emptyListMsg"
@@ -33,11 +33,6 @@ export default {
                 </section>
         </section>
     `,
-
-    created() {
-        todoService.getTodosCountMap()
-            .then(map => this.todosCountMap = map)
-    },
 
     data() {
         return {
@@ -51,25 +46,13 @@ export default {
                 sortBy: '',
                 isDescending: false
             },
-            todosCountMap: null
         }
     },
 
     methods: {
-        loadTodos() {
-            todoService.query(this.filterBy)
-                .then(todos => {
-                    this.$store.commit({ type: 'setTodos', todos })
-                })
-                .catch(() => {
-                    showErrorMsg('Cannot Load Todos')
-                })
-            todoService.getTodosCountMap()
-                .then(map => this.todosCountMap = map)
-        },
         setFilterBy(filterBy) {
             this.filterBy = { ...this.filterBy, ...filterBy }
-            this.loadTodos()
+            this.$store.dispatch({ type: 'loadTodos', filterBy: { ...this.filterBy } })
             this.setEmptyListMsg(filterBy)
         },
         setEmptyListMsg({ isActive }) {
@@ -78,34 +61,19 @@ export default {
             else this.emptyListMsg = 'No Todos Left'
         },
         removeTodo(todo) {
-            todoService.remove(todo._id)
-                .then(() => {
-                    this.$store.commit({ type: 'removeTodo', todoId: todo._id })
-                    this.$store.commit({ type: 'addActivity', txt: `Removed a Todo: '${todo.title}'` })
-                    this.$store.commit({ type: 'resizeProgressBar' })
-                    showSuccessMsg('Todo Removed')
-                    todoService.getTodosCountMap()
-                        .then(map => this.todosCountMap = map)
-                })
-                .catch(() => {
-                    showErrorMsg('Cannot Remove Todo')
-                })
+            this.$store.dispatch({ type: 'removeTodo', todo})
+                .then(() => showSuccessMsg('Todo Removed'))
+                .catch(() => showErrorMsg('Couldn\'t remove todo'))
         },
-        checkTodo(todo) {
-            todoService.save(todo)
-                .then(() => {
-                    todoService.getTodosCountMap()
-                        .then(map => this.todosCountMap = map)
-                })
-            this.$store.commit({ type: 'checkTodo', todoId: todo._id })
-            this.$store.commit({ type: 'resizeProgressBar' })
-            if (todo.isActive) {
-                this.$store.commit({ type: 'addActivity', txt: `Unchecked a Todo: '${todo.title}'` })
-                showSuccessMsg('You can do better!')
-            } else {
-                this.$store.commit({ type: 'addActivity', txt: `Checked a Todo: '${todo.title}'` })
-                showSuccessMsg('Great job! Keep up the good work!')
-            }
+        toggleCheckTodo(todo) {
+            var msg = todo.isActive ? 'You can do better!' : 'Great job! Keep up the good work!'
+            var activityTxt = todo.isActive ? `Unchecked a Todo: '${todo.title}'` : `Checked a Todo: '${todo.title}'`
+
+            todo.isActive = !todo.isActive
+
+            this.$store.dispatch({ type: 'toggleCheckTodo', todo, activityTxt})
+                .then(() => showSuccessMsg(msg))
+                .catch(() => showErrorMsg('Couldn\'t remove todo'))
         },
         changePage(dir) {
             const todosLength = this.todosCountMap.all
@@ -115,17 +83,20 @@ export default {
             else if (pageIdx >= Math.ceil(todosLength / pageSize) && dir === 1) return
 
             this.filterBy.pageIdx += dir
-            this.loadTodos()
+            this.$store.dispatch({ type: 'loadTodos', filterBy: { ...this.filterBy } })
         },
         togglePaging() {
             this.filterBy.isPagingUsed = !this.filterBy.isPagingUsed
-            this.loadTodos()
+            this.$store.dispatch({ type: 'loadTodos', filterBy: { ...this.filterBy } })
         },
     },
     computed: {
         todos() {
-            return this.$store.state.todos
+            return this.$store.getters.todos
         },
+        todosCountMap() {
+            return this.$store.getters.todosCountMap
+        }
     },
     components: {
         Spinner,

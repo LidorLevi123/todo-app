@@ -13,8 +13,8 @@ export const userService = {
 }
 
 // Demo Data:
-signup({ fullname: 'Noa Kirel', username: 'babi', password: '123' })
-// login({ username: 'babi', password: '123' })
+// signup({ fullname: 'Noa Kirel', username: 'babi', password: '123' })
+login({ username: 'babi', password: '123' })
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || null)
@@ -57,13 +57,8 @@ function signup(credentials) {
         })
 }
 
-function addActivity(activityTxt) {
+function addActivity(activity) {
     const user = getLoggedinUser()
-
-    const activity = {
-        txt: activityTxt,
-        at: Date.now(),
-    }
 
     user.activities.unshift(activity)
 
