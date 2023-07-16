@@ -8,7 +8,7 @@ export default {
             </RouterLink>
             <ProgressBar/>
             <nav>
-                <h5>
+                <h5 v-if="user">
                     <img class="user-img" :src="'https://robohash.org/' + user.fullname + '/?set=set5'" alt="user.img">
                     <RouterLink to="/user" class="user">{{ user.fullname }}</RouterLink>
                 </h5>

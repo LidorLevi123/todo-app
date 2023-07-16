@@ -1,102 +1,86 @@
+import fs from 'fs'
 import { utilService } from './util.service.js'
-import { storageService } from './async-storage.service.js'
-
-const TODOS_KEY = 'todosDB'
-
-_createTodos()
 
 export const todoService = {
     query,
     get,
     remove,
     save,
-    getEmptyTodo,
-    getTodosCountMap
 }
 
+const todos = utilService.readJsonFile('data/todo.json')
+
 function query(filterBy) {
+    if (!filterBy) return Promise.resolve(todos)
+    // Filter
+    let filteredTodos
 
-    return storageService.query(TODOS_KEY)
-        .then(todos => {
-            // Filter
-            if (filterBy === undefined) return todos
+    const regex = new RegExp(filterBy.title, 'i')
+    filteredTodos = todos.filter(todo => regex.test(todo.title))
 
-            if (filterBy.title) {
-                const regex = new RegExp(filterBy.title, 'i')
-                todos = todos.filter(todo => regex.test(todo.title))
-            }
-            if (filterBy.isActive !== null && filterBy.isActive !== undefined) {
-                todos = todos.filter(todo => todo.isActive === filterBy.isActive)
-            }
+    const { isActive } = filterBy
 
-            // Sort
-            const desc = filterBy.isDescending ? 1 : -1
-            const { sortBy } = filterBy
+    if(isActive !== null) {
+        if(isActive === 'true') filteredTodos = filteredTodos.filter(todo => todo.isActive)
+        else filteredTodos = filteredTodos.filter(todo => !todo.isActive)
+    }
 
-            if (sortBy === 'title') todos = todos.sort((t1, t2) => t1.title.localeCompare(t2.title) * desc)
-            else if (sortBy === 'active') todos.sort((t1, t2) => (t1.isActive - t2.isActive) * desc)
-            else if (sortBy === 'createdAt') todos.sort((t1, t2) => (t1.createdAt - t2.createdAt) * desc)
+    // Sort
+    filterBy.isDescending = (filterBy.isDescending === 'true') ? true : false
+    const desc = filterBy.isDescending ? 1 : -1
+    const { sortBy } = filterBy
 
-            // Paging
-            const { isPagingUsed, pageSize, pageIdx } = filterBy
+    if (sortBy === 'title') filteredTodos.sort((t1, t2) => t1.title.localeCompare(t2.title) * desc)
+    else if (sortBy === 'active') filteredTodos.sort((t1, t2) => (t1.isActive - t2.isActive) * desc)
+    else if (sortBy === 'createdAt') filteredTodos.sort((t1, t2) => (t1.createdAt - t2.createdAt) * desc)
 
-            if (isPagingUsed) {
-                const startPageIdx = pageIdx * pageSize
-                todos = todos.slice(startPageIdx, startPageIdx + pageSize)
-            }
+    // Paging
+    filterBy.isPagingUsed = (filterBy.isPagingUsed === 'true') ? true : false
+    const { isPagingUsed, pageSize, pageIdx } = filterBy
 
-            return todos
-        })
+    if (pageIdx !== undefined && isPagingUsed) {
+        const startPageIdx = pageIdx * pageSize
+        filteredTodos = filteredTodos.slice(startPageIdx, startPageIdx + pageSize)
+    }
+
+    return Promise.resolve(filteredTodos)
 }
 
 function get(todoId) {
-    return storageService.get(TODOS_KEY, todoId)
+    const todo = todos.find(todo => todo._id === todoId)
+    return Promise.resolve(todo)
 }
 
 function remove(todoId) {
-    return storageService.remove(TODOS_KEY, todoId)
+    const idx = todos.findIndex(todo => todo._id === todoId)
+    if (idx === -1) return Promise.reject('No Such todo')
+    todos.splice(idx, 1)
+    return _saveTodosToFile()
 }
 
 function save(todo) {
     if (todo._id) {
-        return storageService.put(TODOS_KEY, todo)
+        const idx = todos.findIndex(currTodo => currTodo._id === todo._id)
+        if (idx === -1) throw new Error('Couldn\'t find todo')
+        todos[idx] = todo
     } else {
-        return storageService.post(TODOS_KEY, todo, false)
+        todo._id = utilService.makeId()
+        todo.createdAt = Date.now()
+        todo.isActive = true
+        todos.unshift(todo)
     }
+
+    return _saveTodosToFile().then(() => todo)
 }
 
-function getTodosCountMap() {
-    return storageService.query(TODOS_KEY)
-            .then(todos => {
-                return todos.reduce((map, todo) => {
-                        map.all++
-                        if(todo.isActive) map.active++
-                        else if(!todo.isActive) map.done++
-        
-                        return map
-                    }, { all: 0, active: 0, done: 0 })
-                })
-}
-
-function getEmptyTodo(title = '', isActive = true) {
-    return { _id: '', title, isActive }
-}
-
-function _createTodos() {
-    let todos = utilService.loadFromStorage(TODOS_KEY)
-    if (!todos || !todos.length) {
-        todos = []
-        todos.push(_createTodo('Learn Vuex', true))
-        todos.push(_createTodo('Play Katan', true))
-        todos.push(_createTodo('Finish This Project', false))
-        todos.push(_createTodo('Eat Lunch', true))
-        utilService.saveToStorage(TODOS_KEY, todos)
-    }
-}
-
-function _createTodo(name, price) {
-    const todo = getEmptyTodo(name, price)
-    todo._id = utilService.makeId()
-    todo.createdAt = Date.now()
-    return todo
+function _saveTodosToFile() {
+    return new Promise((resolve, reject) => {
+        const data = JSON.stringify(todos, null, 2)
+        fs.writeFile('data/todo.json', data, (err) => {
+            if (err) {
+                return reject(err)
+            }
+            resolve()
+        })
+    })
 }

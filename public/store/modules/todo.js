@@ -1,4 +1,4 @@
-import { todoService } from '../../../services/todo.service.js'
+import { todoService } from '../../services/todo.service.js'
 
 export const todoStore = {
     strict: true,

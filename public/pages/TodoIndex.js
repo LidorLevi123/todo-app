@@ -1,5 +1,4 @@
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
-import { todoService } from '../services/todo.service.js'
 
 import Spinner from '../cmps/Spinner.js'
 import TodoEdit from '../cmps/TodoEdit.js'

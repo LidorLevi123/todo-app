@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "u101",
+    "username": "noakirel",
+    "fullname": "Noa Kirel",
+    "password": "noa123"
+  },
+  {
+    "_id": "u102",
+    "username": "muki",
+    "fullname": "Muki Ba",
+    "password": "mukpuk5"
+  }
+]
